@@ -48,18 +48,9 @@ const accounting = {
         this.save_input();
         this.give_input();
         this.input_calculated_with_sum();
-         this.give_sum();
+        this.give_sum();
     }
 }
-
-//Gesamtbilanz
-
-const add_input = function(){
-    save_input();
-    give_input(title, type, amount, date);
-    input_calculated_with_sum(type, amount)
-    give_sum(totalIncome, totalCosts, sum);
-};
 
 //Kann die Eingabe auf diese Weise mehrfach wiederholen
 accounting.add_input();
