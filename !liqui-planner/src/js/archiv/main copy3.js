@@ -38,6 +38,15 @@ const accounting = {
             default:
                 console.log(`Eingabe ${this.new_input.type} kann nicht zugeordnet werden. Bitte nutze Einnahme oder Ausgabe`);
         }
+        // if(this.new_input.type === "Einnahme"){
+        //     this.balance.totalIncome += this.new_input.amount;
+        //     this.balance.sum += this.new_input.amount;
+        // } else if(this.new_input.type === "Ausgabe"){
+        //     this.balance.totalCosts += this.new_input.amount;
+        //     this.balance.sum -= this.new_input.amount;
+        // } else{
+        //     console.log(`Eingabe ${this.new_input.type} kann nicht zugeordnet werden. Bitte nutze Einnahme oder Ausgabe`)
+        // }
     },
     give_sum (){
         console.log(
