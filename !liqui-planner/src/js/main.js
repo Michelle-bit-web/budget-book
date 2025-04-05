@@ -22,20 +22,16 @@ const accounting = {
             }
         );
     },
-    // save_input(){
-    //     this.new_input.title = prompt("Titel:", "z.B. Einkauf");
-    //     this.new_input.type = prompt("Typ (Einnahme o. Ausgabe):");
-    //     this.new_input.amount = parseInt(prompt("Betrag (in Cent):", "z.B. 10.42 € = 1042 Ct"));
-    //     this.new_input.date = prompt("Datum:", "jjjj-mm-tt");
-    // },
-    // give_input(){
-    //     console.log(
-    //         `Titel: ${this.new_input.title}
-    //          Typ: ${this.new_input.type}
-    //          Betrag (in Ct): ${this.new_input.amount} Cent
-    //          Datum (jjjj-mm-tt): ${this.new_input.date}`
-    //     );
-    // },
+    give_all_inputs(){
+        this.inputs.forEach((input) => {
+            console.log(
+                `Titel: ${input.title}
+                 Typ: ${input.type}
+                 Betrag (in Ct): ${input.amount} Cent
+                 Datum (jjjj-mm-tt): ${input.date}`);
+        })
+       
+    },
     // input_calculated_with_sum (){
     //     switch (this.new_input.type){
     //         case "Einnahme":
@@ -60,7 +56,7 @@ const accounting = {
     // },
     add_input(){
         this.save_input();
-        // this.give_input();
+        this.give_all_inputs();
         // this.input_calculated_with_sum();
         // this.give_sum();
     }
