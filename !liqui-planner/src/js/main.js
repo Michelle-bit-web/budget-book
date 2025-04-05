@@ -52,9 +52,8 @@ const accounting = {
                 default:
                     console.log(`Eingabe ${input.type} kann nicht zugeordnet werden. Bitte nutze Einnahme oder Ausgabe`);
             }
-        }); console.log(new_sum) //zeigt, dass die Daten ins neue Objekt gespeichert wurden
+        });
         this.balance = new_sum; 
-        console.log(this.balance) //zeigt, dass die Daten wiederum in balance hinterlegt wurden
     },
     give_sum (){
         console.log(
@@ -65,17 +64,17 @@ const accounting = {
         );
     },
     add_input(){
-        this.save_input();
-        this.give_all_inputs();
-        this.calculate_sum();
-        this.give_sum();
+        let more_inputs = true;
+        while (more_inputs == true){
+            this.save_input();
+            this.give_all_inputs(); 
+            this.calculate_sum();
+            this.give_sum();
+            more_inputs = confirm("Weiteren Eintrag hinzufügen?");
+        } 
     }
 }
 
-//Kann die Eingabe auf diese Weise mehrfach wiederholen
 accounting.add_input();
-accounting.add_input();
-console.log(accounting);
-// accounting.add_input();
 
 
