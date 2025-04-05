@@ -33,20 +33,29 @@ const accounting = {
         })
        
     },
-    // input_calculated_with_sum (){
-    //     switch (this.new_input.type){
-    //         case "Einnahme":
-    //             this.balance.totalIncome += this.new_input.amount;
-    //             this.balance.sum += this.new_input.amount;
-    //             break;
-    //         case "Ausgabe":
-    //             this.balance.totalCosts += this.new_input.amount;
-    //             this.balance.sum -= this.new_input.amount;
-    //             break;
-    //         default:
-    //             console.log(`Eingabe ${this.new_input.type} kann nicht zugeordnet werden. Bitte nutze Einnahme oder Ausgabe`);
-    //     }
-    // },
+    calculate_sum (){
+        let new_sum ={
+            totalIncome: 0,
+            totalCosts: 0,
+            sum: 0,
+        };
+        this.inputs.forEach((input) => {
+            switch (input.type){
+                case "Einnahme":
+                    new_sum.totalIncome += input.amount;
+                    new_sum.sum += input.amount;
+                    break;
+                case "Ausgabe":
+                    new_sum.totalCosts += input.amount;
+                    new_sum.sum -= input.amount;
+                    break;
+                default:
+                    console.log(`Eingabe ${input.type} kann nicht zugeordnet werden. Bitte nutze Einnahme oder Ausgabe`);
+            }
+        }); console.log(new_sum) //zeigt, dass die Daten ins neue Objekt gespeichert wurden
+        this.balance = new_sum; 
+        console.log(this.balance) //zeigt, dass die Daten wiederum in balance hinterlegt wurden
+    },
     // give_sum (){
     //     console.log(
     //         `Einnahmen: ${this.balance.totalIncome} ct
@@ -58,7 +67,7 @@ const accounting = {
     add_input(){
         this.save_input();
         this.give_all_inputs();
-        // this.input_calculated_with_sum();
+        this.calculate_sum();
         // this.give_sum();
     }
 }
