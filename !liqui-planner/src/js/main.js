@@ -22,6 +22,18 @@ const accounting = {
             }
         );
     },
+    sort_inputs(){
+        let sorted_inputs = this.inputs.sort((input_a,input_b) => {
+            if(input_a.date > input_b.date){
+                return -1;
+            } else if(input_a.date < input_b.date){
+                return 1;
+            } else {
+                return 0;
+            }
+        });
+        this.inputs = sorted_inputs;
+    },
     give_all_inputs(){
         console.clear();
         this.inputs.forEach((input) => {
@@ -65,8 +77,9 @@ const accounting = {
     },
     add_input(){
         let more_inputs = true;
-        while (more_inputs == true){
+        while (more_inputs){
             this.save_input();
+            this.sort_inputs();
             this.give_all_inputs(); 
             this.calculate_sum();
             this.give_sum();
