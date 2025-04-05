@@ -23,6 +23,7 @@ const accounting = {
         );
     },
     give_all_inputs(){
+        console.clear();
         this.inputs.forEach((input) => {
             console.log(
                 `Titel: ${input.title}
