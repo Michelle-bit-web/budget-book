@@ -26,10 +26,10 @@ const accounting = {
         console.clear();
         this.inputs.forEach((input) => {
             console.log(
-                `Titel: ${input.title}
-                 Typ: ${input.type}
-                 Betrag (in Ct): ${input.amount} Cent
-                 Datum (jjjj-mm-tt): ${input.date}`);
+                `Titel: ${input.title}\n`
+                +`Typ: ${input.type}\n`
+                +`Betrag (in Ct): ${input.amount} Cent\n`
+                +`Datum (jjjj-mm-tt): ${input.date}\n`);
         })
        
     },
@@ -56,19 +56,19 @@ const accounting = {
         this.balance = new_sum; 
         console.log(this.balance) //zeigt, dass die Daten wiederum in balance hinterlegt wurden
     },
-    // give_sum (){
-    //     console.log(
-    //         `Einnahmen: ${this.balance.totalIncome} ct
-    //          Ausgaben: ${this.balance.totalCosts} ct
-    //          Bilanz: ${ this.balance.sum} ct
-    //          Bilanz ist positiv: ${ this.balance.sum >= 0}`
-    //     );
-    // },
+    give_sum (){
+        console.log(
+            `Einnahmen: ${this.balance.totalIncome} ct \n`
+            +`Ausgaben: ${this.balance.totalCosts} ct\n`
+            +`Bilanz: ${ this.balance.sum} ct \n`
+            +`Bilanz ist positiv: ${ this.balance.sum >= 0} \n`
+        );
+    },
     add_input(){
         this.save_input();
         this.give_all_inputs();
         this.calculate_sum();
-        // this.give_sum();
+        this.give_sum();
     }
 }
 
