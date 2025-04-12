@@ -1,46 +1,49 @@
 "use strict";
 const accounting = {
-    // new_input: {
-    //     title: null,
-    //     type: null,
-    //     amount: null,
-    //     date: null,
-    // },
-    // balance: {
-    //     totalIncome: 0,
-    //     totalCosts: 0,
-    //     sum: 0,
-    // },
-    balance: new Map(),
+    new_input: {
+        title: null,
+        type: null,
+        amount: null,
+        date: null,
+    },
+    balance: {
+        totalIncome: 0,
+        totalCosts: 0,
+        sum: 0,
+    },
     inputs: [],
     save_input(){
-        let new_input = new Map();
-        new_input.set("title",prompt("Titel:", "z.B. Einkauf"));
-        new_input.set("type",prompt("Typ (Einnahme o. Ausgabe):"));
-        new_input.set("amount",parseInt(prompt("Betrag (in Cent):", "z.B. 10.42 € = 1042 Ct")));
-        new_input.set("date",prompt("Datum:", "jjjj-mm-tt"));
-        this.inputs.push(new_input);
+        this.inputs.push(
+            {
+                title: prompt("Titel:", "z.B. Einkauf"),
+                type: prompt("Typ (Einnahme o. Ausgabe):"),
+                amount: parseInt(prompt("Betrag (in Cent):", "z.B. 10.42 € = 1042 Ct")),
+                date: prompt("Datum:", "jjjj-mm-tt"),
+            }
+        );
     },
     sort_inputs(){
-        this.inputs.sort((input_a,input_b) => {
-            if(input_a.get("date") > input_b.get("date")){
+        let sorted_inputs = this.inputs.sort((input_a,input_b) => {
+            if(input_a.date > input_b.date){
                 return -1;
-            } else if(input_a.get("date") < input_b.get("date")){
+            } else if(input_a.date < input_b.date){
                 return 1;
             } else {
                 return 0;
             }
         });
+        this.inputs = sorted_inputs;
     },
     give_all_inputs(){
         console.clear();
         this.inputs.forEach((input) => {
             console.log(
-                `Titel: ${input.get("title")}\n`
-                +`Typ: ${input.get("type")}\n`
-                +`Betrag (in Ct): ${input.get("amount")} Cent\n`
-                +`Datum (jjjj-mm-tt): ${input.get("date")}\n`);
+                `Titel: ${input.title}\n`
+                +`Typ: ${input.type}\n`
+                +`Betrag (in Ct): ${input.amount} Cent\n`
+                +`Datum (jjjj-mm-tt): ${input.date}\n`);
         })
+       
     },
     calculate_sum (){
         let new_sum ={
