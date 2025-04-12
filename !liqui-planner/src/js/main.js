@@ -1,16 +1,5 @@
 "use strict";
 const accounting = {
-    // new_input: {
-    //     title: null,
-    //     type: null,
-    //     amount: null,
-    //     date: null,
-    // },
-    // balance: {
-    //     totalIncome: 0,
-    //     totalCosts: 0,
-    //     sum: 0,
-    // },
     balance: new Map(),
     inputs: [],
     save_input(){
@@ -43,33 +32,32 @@ const accounting = {
         })
     },
     calculate_sum (){
-        let new_sum ={
-            totalIncome: 0,
-            totalCosts: 0,
-            sum: 0,
-        };
+        let new_sum = new Map();
+        new_sum.set("totalIncome", 0);
+        new_sum.set("totalCosts", 0);
+        new_sum.set("sum", 0);
         this.inputs.forEach((input) => {
-            switch (input.type){
+            switch (input.get("type")){
                 case "Einnahme":
-                    new_sum.totalIncome += input.amount;
-                    new_sum.sum += input.amount;
+                    new_sum.set("totalIncome", new_sum.get("totalIncome") + input.get("amount"));
+                    new_sum.set("sum", new_sum.get("sum") + input.get("amount"));
                     break;
                 case "Ausgabe":
-                    new_sum.totalCosts += input.amount;
-                    new_sum.sum -= input.amount;
+                    new_sum.set("totalCosts", new_sum.get("totalCosts") + input.get("amount"));
+                    new_sum.set("sum", new_sum.get("sum") - input.get("amount"));
                     break;
                 default:
-                    console.log(`Eingabe ${input.type} kann nicht zugeordnet werden. Bitte nutze Einnahme oder Ausgabe`);
+                    console.log(`Eingabe ${input.get("type")} kann nicht zugeordnet werden. Bitte nutze Einnahme oder Ausgabe`);
             }
         });
         this.balance = new_sum; 
     },
     give_sum (){
         console.log(
-            `Einnahmen: ${this.balance.totalIncome} ct \n`
-            +`Ausgaben: ${this.balance.totalCosts} ct\n`
-            +`Bilanz: ${ this.balance.sum} ct \n`
-            +`Bilanz ist positiv: ${ this.balance.sum >= 0} \n`
+            `Einnahmen: ${this.balance.get("totalIncome")} ct \n`
+            +`Ausgaben: ${this.balance.get("totalCosts")} ct\n`
+            +`Bilanz: ${ this.balance.get("sum")} ct \n`
+            +`Bilanz ist positiv: ${ this.balance.get("sum") >= 0} \n`
         );
     },
     add_input(){
