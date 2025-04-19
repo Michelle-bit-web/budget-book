@@ -171,9 +171,22 @@ show_inputs(){
   //   );
   // },
 
-  generate_html_sum(){},
+//   <aside id="gesamtbilanz">
+//   <h1>Gesamtbilanz</h1>
+//   <div class="gesamtbilanz-zeile einnahmen"><span>Einnahmen:</span><span>4228,74€</span></div>
+//   <div class="gesamtbilanz-zeile ausgaben"><span>Ausgaben:</span><span>2988,88€</span></div>
+//   <div class="gesamtbilanz-zeile bilanz"><span>Bilanz:</span><span class="positiv">1239,86€</span></div>
+// </aside>
 
-  show_sum(){},
+  generate_html_sum(){
+    
+  },
+  show_sum(){
+    document.querySelectorAll("#gesamtbilanz").forEach(function(){
+      balance.remove();
+    });
+    document.querySelector("body").insertAdjacentElement("beforeend", this.generate_html_sum());
+  },
   
   add_input() {
     let more_inputs = true;
@@ -184,7 +197,7 @@ show_inputs(){
         this.sort_inputs();
         this.show_inputs();
         this.calculate_sum();
-        // this.give_sum();
+        this.show_sum();
       } else{
         this.error = [];
       };
