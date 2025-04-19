@@ -162,38 +162,62 @@ show_inputs(){
     });
     this.balance = new_sum;
   },
-  // give_sum() {
-  //   console.log(
-  //     `Einnahmen: ${(this.balance.get("totalIncome") / 100).toFixed(2)} Euro \n` +
-  //       `Ausgaben: ${(this.balance.get("totalCosts") / 100).toFixed(2)} Euro\n` +
-  //       `Bilanz: ${(this.balance.get("sum") / 100).toFixed(2)} Euro \n` +
-  //       `Bilanz ist positiv: ${this.balance.get("sum") >= 0} \n`
-  //   );
-  // },
-
-//   <aside id="gesamtbilanz">
-//   <h1>Gesamtbilanz</h1>
-//   <div class="gesamtbilanz-zeile einnahmen"><span>Einnahmen:</span><span>4228,74€</span></div>
-//   <div class="gesamtbilanz-zeile ausgaben"><span>Ausgaben:</span><span>2988,88€</span></div>
-//   <div class="gesamtbilanz-zeile bilanz"><span>Bilanz:</span><span class="positiv">1239,86€</span></div>
-// </aside>
-
   generate_html_sum(){
-    
+    let sum = document.createElement("aside");
+    sum.setAttribute("id", "gesamtbilanz");
+
+    let title = document.createElement("h1");
+    title.textContent = "Gesamtbilanz";
+    sum.insertAdjacentElement("afterbegin", title);
+
+    let income_row = document.createElement("div");
+    income_row.setAttribute("class", "gesamtbilanz-zeile einnahmen");
+    let income_title = document.createElement("span");
+    income_title.textContent = "Einnahmen:";
+    income_row.insertAdjacentElement("afterbegin", income_title);
+    let income_amount = document.createElement("span");
+    income_amount.textContent = `${(this.balance.get("totalIncome") / 100).toFixed(2).replace(/\./, ",")} €`;
+    income_row.insertAdjacentElement("beforeend", income_amount);
+    sum.insertAdjacentElement("beforeend", income_row);
+
+    let cost_row = document.createElement("div");
+    cost_row.setAttribute("class", "gesamtbilanz-zeile ausgaben");
+    let cost_title = document.createElement("span");
+    cost_title.textContent = "Ausgaben:";
+    cost_row.insertAdjacentElement("afterbegin", cost_title);
+    let cost_amount = document.createElement("span");
+    cost_amount.textContent = `${(this.balance.get("totalCosts") / 100).toFixed(2).replace(/\./, ",")} €`;
+    cost_row.insertAdjacentElement("beforeend", cost_amount);
+    sum.insertAdjacentElement("beforeend", cost_row);
+
+    let sum_row = document.createElement("div");
+    sum_row.setAttribute("class", "gesamtbilanz-zeile bilanz");
+    let sum_title = document.createElement("span");
+    sum_title.textContent = "Bilanz:";
+    sum_row.insertAdjacentElement("afterbegin", sum_title);
+    let sum_amount = document.createElement("span");
+    if(this.balance.get("sum") >= 0){
+      sum_amount.setAttribute("class", "positiv")
+    }else if(this.balance.get("sum") < 0){
+      sum_amount.setAttribute("class", "negativ")
+    };
+    sum_amount.textContent = `${(this.balance.get("sum") / 100).toFixed(2).replace(/\./, ",")} €`;
+    sum_row.insertAdjacentElement("beforeend", sum_amount);
+
+    sum.insertAdjacentElement("beforeend", sum_row);
+    return sum;
   },
   show_sum(){
-    document.querySelectorAll("#gesamtbilanz").forEach(function(){
+    document.querySelectorAll("#gesamtbilanz").forEach(function(balance){
       balance.remove();
     });
     document.querySelector("body").insertAdjacentElement("beforeend", this.generate_html_sum());
   },
-  
   add_input() {
     let more_inputs = true;
     while (more_inputs) {
       this.save_input();
       if(this.error.length === 0){
-        //Methodenaufrufe anpassen
         this.sort_inputs();
         this.show_inputs();
         this.calculate_sum();
