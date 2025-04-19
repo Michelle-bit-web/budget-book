@@ -1,4 +1,4 @@
 "use strict";
 
-
-accounting.add_input();
+formular.show();
+// accounting.add_input();
