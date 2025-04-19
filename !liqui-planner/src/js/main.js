@@ -15,9 +15,7 @@ const accounting = {
       this.inputs.push(new_input)
     } else{
       console.log('Error occured:')
-      this.error.forEach(function(error){
-        console.log(error)
-      });
+      this.error.forEach(error => console.log(error));
     };
   },
   format_amount(current_number) {
@@ -132,13 +130,9 @@ generate_html_input(input){
   return list_node;
 },
 show_inputs(){
-  document.querySelectorAll(".monatsliste ul").forEach(function(list){
-    list.remove()});
-  
+  document.querySelectorAll(".monatsliste ul").forEach(list => list.remove());
   let input_list = document.createElement("ul");
- for (let input of this.inputs){
-  input_list.insertAdjacentElement("beforeend", this.generate_html_input(input));
- }
+  this.inputs.forEach(input => input_list.insertAdjacentElement("beforeend", this.generate_html_input(input)));
   document.querySelector(".monatsliste").insertAdjacentElement("afterbegin", input_list);  
 },
   calculate_sum() {
@@ -146,7 +140,7 @@ show_inputs(){
     new_sum.set("totalIncome", 0);
     new_sum.set("totalCosts", 0);
     new_sum.set("sum", 0);
-    this.inputs.forEach((input) => {
+    this.inputs.forEach(input => {
       switch (input.get("type")) {
         case "einnahme":
           new_sum.set("totalIncome", new_sum.get("totalIncome") + input.get("amount"));
@@ -208,9 +202,7 @@ show_inputs(){
     return sum;
   },
   show_sum(){
-    document.querySelectorAll("#gesamtbilanz").forEach(function(balance){
-      balance.remove();
-    });
+    document.querySelectorAll("#gesamtbilanz").forEach(balance => balance.remove());
     document.querySelector("body").insertAdjacentElement("beforeend", this.generate_html_sum());
   },
   add_input() {
