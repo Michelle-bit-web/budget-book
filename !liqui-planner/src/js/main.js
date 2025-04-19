@@ -197,14 +197,15 @@ show_inputs(){
     sum_row.insertAdjacentElement("afterbegin", sum_title);
     let sum_amount = document.createElement("span");
     if(this.balance.get("sum") >= 0){
-      sum_amount.setAttribute("class", "positiv")
+      sum_amount.setAttribute("class", "positiv");
+      sum_amount.textContent = `${(this.balance.get("sum") / 100).toFixed(2).replace(/\./, ",")} €`;
     }else if(this.balance.get("sum") < 0){
-      sum_amount.setAttribute("class", "negativ")
+      sum_amount.setAttribute("class", "negativ");
+      sum_amount.textContent = `-${(this.balance.get("sum") / 100).toFixed(2).replace(/\./, ",")} €`;
     };
-    sum_amount.textContent = `${(this.balance.get("sum") / 100).toFixed(2).replace(/\./, ",")} €`;
     sum_row.insertAdjacentElement("beforeend", sum_amount);
-
     sum.insertAdjacentElement("beforeend", sum_row);
+    
     return sum;
   },
   show_sum(){
