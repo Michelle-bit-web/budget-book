@@ -29,8 +29,17 @@ const formular = {
           e.preventDefault();
           console.log(e);
           let formular_data = this.processing_data(this.get_formular_data(e));
-          console.log(formular_data)
-    });
+          validate_data(formular_data);
+       });
+  },
+  validate_data(formular_data){
+    let error = [];
+    if(){
+      error.push("title")
+    }else if(){
+
+    }
+    return error
   },
   generate_html() {
      let input_formular = document.createElement("section");
@@ -51,6 +60,7 @@ const formular = {
             placeholder="z.B. Einkaufen"
             size="10"
             title="Titel des Eintrags"
+            required
           />
           <input
             type="radio"
@@ -86,6 +96,7 @@ const formular = {
             size="10"
             step="0.01"
             title="Betrag des Eintrags (max. zwei Nachkommastellen, kein €-Zeichen)"
+            required
           />
           <label for="datum">Datum</label>
           <input
@@ -96,6 +107,7 @@ const formular = {
             placeholder="jjjj-mm-tt"
             size="10"
             title="Datum des Eintrags (Format: jjjj-mm-tt)"
+            required
           />
         </div>
       </div>
