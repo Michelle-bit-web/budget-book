@@ -37,6 +37,12 @@ const formular = {
     }
     return error;
   },
+  refresh_date(){
+    let date_input = document.querySelector("#datum");
+    if(date_input !== null){
+    date_input.valueAsDate = new Date();
+    }
+  },
   send_add_event(input_formular) {
         input_formular.querySelector("#eingabeformular").addEventListener("submit", (e) => {
           e.preventDefault();
@@ -44,7 +50,9 @@ const formular = {
           let formular_error = this.validate_data(formular_data);
           if(formular_error.length === 0){
             accounting.add_input(formular_data);
-          }else{
+            e.target.reset();
+            this.refresh_date();
+          } else{
 
           }
        });
@@ -129,5 +137,6 @@ const formular = {
    },
   show() {
      document.querySelector("#navigationsleiste").insertAdjacentElement("afterend", this.generate_html());
+     this.refresh_date();
    },
 };
