@@ -1,67 +1,95 @@
 "use strict";
 
 const formular = {
-  get_formular_data(e){
+  get_formular_data(e) {
     return {
       title: e.target.elements.titel.value,
       amount: e.target.elements.betrag.value,
       income: e.target.elements.einnahme.checked,
       costs: e.target.elements.ausgabe.checked,
-      date: e.target.elements.datum.valueAsDate
+      date: e.target.elements.datum.valueAsDate,
     };
   },
-  processing_data(formular_data){
+  processing_data(formular_data) {
     let type;
-    if(formular_data.costs === true){
+    if (formular_data.costs === true) {
       type = "ausgabe";
-    } else if(formular_data.income === true){
+    } else if (formular_data.income === true) {
       type = "einnahme";
-    };
+    }
     return {
       title: formular_data.title.trim(),
       type: type,
       amount: parseFloat(formular_data.amount) * 100,
-      date: formular_data.date
-    }
+      date: formular_data.date,
+    };
   },
-  validate_data(formular_data){
+  validate_data(formular_data) {
     let error = [];
-    if(formular_data.title === ""){
+    if (formular_data.title === "") {
       error.push("title");
-    } else if(formular_data.type === undefined || formular_data.type.match(/^(?:einnahme|ausgabe)$/) === null){
+    } else if (formular_data.type === undefined || formular_data.type.match(/^(?:einnahme|ausgabe)$/) === null) {
       error.push("type");
-    } else if(formular_data.date === null){
+    } else if (formular_data.date === null) {
       error.push("date");
-    } else if(isNaN(formular_data.amount)){
+    } else if (isNaN(formular_data.amount)) {
       error.push("amount");
     }
     return error;
   },
-  refresh_date(){
+  refresh_date() {
     let date_input = document.querySelector("#datum");
-    if(date_input !== null){
-    date_input.valueAsDate = new Date();
+    if (date_input !== null) {
+      date_input.valueAsDate = new Date();
     }
   },
   send_add_event(input_formular) {
-        input_formular.querySelector("#eingabeformular").addEventListener("submit", (e) => {
-          e.preventDefault();
-          let formular_data = this.processing_data(this.get_formular_data(e));
-          let formular_error = this.validate_data(formular_data);
-          if(formular_error.length === 0){
-            accounting.add_input(formular_data);
-            e.target.reset();
-            this.refresh_date();
-          } else{
-
-          }
-       });
+    input_formular.querySelector("#eingabeformular").addEventListener("submit", (e) => {
+      e.preventDefault();
+      let formular_data = this.processing_data(this.get_formular_data(e));
+      let formular_error = this.validate_data(formular_data);
+      if (formular_error.length === 0) {
+        accounting.add_input(formular_data);
+        this.remove_error_box();
+        e.target.reset();
+        this.refresh_date();
+      } else {
+        this.remove_error_box();
+        this.show_error_box(formular_error);
+      }
+    });
+  },
+  generate_error_html(formular_error){
+    let error_box = document.createElement("div");
+    error_box.setAttribute("class", "fehlerbox");
+    let error_text = document.createElement("span");
+    error_text.textContent ="Folgende Felder wurden nicht korrekt ausgefüllt:";
+    error_box.insertAdjacentElement("afterbegin", error_text);
+    let error_list = document.createElement("ul");
+    formular_error.forEach(error => {
+      let error_list_point = document.createElement("li");
+      error_list_point.textContent = error;
+      error_list.insertAdjacentElement("beforeend", error_list_point);
+    });
+    error_text.insertAdjacentElement("afterend", error_list);
+    return error_box;
+  },
+  show_error_box(formular_error){
+    let input_formular_container = document.querySelector("#eingabeformular-container");
+    if(input_formular_container !== null){
+      document.querySelector("#eingabeformular-container").insertAdjacentElement("afterbegin", this.generate_error_html(formular_error));
+    };
+  },
+  remove_error_box(){
+    let current_error_box = document.querySelector(".fehlerbox");
+    if(current_error_box !== null){
+      current_error_box.remove();
+    }
   },
   generate_html() {
-     let input_formular = document.createElement("section");
-     input_formular.setAttribute("id", "eingabeformular-container");
-     input_formular.innerHTML = `<form id="eingabeformular" action="#" method="get"></form>
-     
+    let input_formular = document.createElement("section");
+    input_formular.setAttribute("id", "eingabeformular-container");
+    input_formular.innerHTML = `<form id="eingabeformular" action="#" method="get"></form>
       <div class="eingabeformular-zeile">
         <h1>Neue Einnahme / Ausgabe hinzufügen</h1>
       </div>
@@ -132,11 +160,11 @@ const formular = {
         <button class="standard" type="submit" form="eingabeformular">Hinzufügen</button>
       </div>
         `;
-     this.send_add_event(input_formular);
-        return input_formular;
-   },
+    this.send_add_event(input_formular);
+    return input_formular;
+  },
   show() {
-     document.querySelector("#navigationsleiste").insertAdjacentElement("afterend", this.generate_html());
-     this.refresh_date();
-   },
+    document.querySelector("#navigationsleiste").insertAdjacentElement("afterend", this.generate_html());
+    this.refresh_date();
+  },
 };
