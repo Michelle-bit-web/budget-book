@@ -24,22 +24,25 @@ const formular = {
       date: formular_data.date
     }
   },
+  validate_data(formular_data){
+    let error = [];
+    if(formular_data.title === ""){
+      error.push("title");
+    } else if(formular_data.type === undefined || formular_data.type.match(/^(?:einnahme|ausgabe)$/) === null){
+      error.push("type");
+    } else if(formular_data.date === null){
+      error.push("date");
+    } else if(isNaN(formular_data.amount)){
+      error.push("amount");
+    }
+    return error;
+  },
   send_add_event(input_formular) {
         input_formular.querySelector("#eingabeformular").addEventListener("submit", (e) => {
           e.preventDefault();
-          console.log(e);
           let formular_data = this.processing_data(this.get_formular_data(e));
-          validate_data(formular_data);
+          let formular_error = this.validate_data(formular_data);
        });
-  },
-  validate_data(formular_data){
-    let error = [];
-    if(){
-      error.push("title")
-    }else if(){
-
-    }
-    return error
   },
   generate_html() {
      let input_formular = document.createElement("section");
