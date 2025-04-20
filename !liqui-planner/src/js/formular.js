@@ -1,10 +1,41 @@
 "use strict";
 
 const formular = {
+  get_formular_data(e){
+    return {
+      title: e.target.elements.titel.value,
+      amount: e.target.elements.betrag.value,
+      income: e.target.elements.einnahme.checked,
+      costs: e.target.elements.ausgabe.checked,
+      date: e.target.elements.datum.valueAsDate
+    };
+  },
+  processing_data(formular_data){
+    let type;
+    if(formular_data.costs === true){
+      type = "ausgabe";
+    } else if(formular_data.income === true){
+      type = "einnahme";
+    };
+    return {
+      title: formular_data.title.trim(),
+      type: type,
+      amount: parseFloat(formular_data.amount) * 100,
+      date: formular_data.date
+    }
+  },
+  send_add_event(input_formular) {
+        input_formular.querySelector("#eingabeformular").addEventListener("submit", (e) => {
+          e.preventDefault();
+          console.log(e);
+          let formular_data = this.processing_data(this.get_formular_data(e));
+          console.log(formular_data)
+    });
+  },
   generate_html() {
-    let input_formular = document.createElement("section");
-    input_formular.setAttribute("id", "eingabeformular-container");
-    input_formular.innerHTML = `<form id="eingabeformular" action="#" method="get"></form>
+     let input_formular = document.createElement("section");
+     input_formular.setAttribute("id", "eingabeformular-container");
+     input_formular.innerHTML = `<form id="eingabeformular" action="#" method="get"></form>
      
       <div class="eingabeformular-zeile">
         <h1>Neue Einnahme / Ausgabe hinzufügen</h1>
@@ -13,7 +44,7 @@ const formular = {
       <div class="eingabeformular-zeile">
         <div class="titel-typ-eingabe-gruppe">
           <label for="titel">Titel</label>
-          <inputtype="text"
+          <input type="text"
             id="titel"
             form="eingabeformular"
             name="titel"
@@ -73,9 +104,10 @@ const formular = {
         <button class="standard" type="submit" form="eingabeformular">Hinzufügen</button>
       </div>
         `;
-    return input_formular;
-  },
-  show(){
-    document.querySelector("#navigationsleiste").insertAdjacentElement("afterend", this.generate_html());
-  },
+     this.send_add_event(input_formular);
+        return input_formular;
+   },
+  show() {
+     document.querySelector("#navigationsleiste").insertAdjacentElement("afterend", this.generate_html());
+   },
 };
