@@ -16,6 +16,19 @@ const accounting = {
     this.calculate_sum();
     this.show_sum();
   },
+  remove_input(timestamp){
+    let start_index;
+    for (let i = 0; i < this.inputs.length; i++) {
+      if(this.inputs[i].get("timestamp") === parseInt(timestamp)){
+        start_index = i;
+        break;
+      };
+    }
+    this.inputs.splice(start_index, 1);
+    this.show_inputs();
+    this.calculate_sum();
+    this.show_sum();
+  },
   sort_inputs() {
     this.inputs.sort((input_a, input_b) => {
       if (input_a.get("date") > input_b.get("date")) {
@@ -65,7 +78,15 @@ const accounting = {
     icon.setAttribute("class", "fas fa-trash");
     button.insertAdjacentElement("afterbegin", icon);
 
+    this.add_event_recycle_input(list_node);
+
     return list_node;
+  },
+  add_event_recycle_input(list_node){
+    list_node.querySelector(".entfernen-button").addEventListener("click", e => {
+      let timestamp = e.target.parentElement.getAttribute("data-timestamp");
+      this.remove_input(timestamp);
+    });
   },
   show_inputs() {
     document.querySelectorAll(".monatsliste ul").forEach((list) => list.remove());
