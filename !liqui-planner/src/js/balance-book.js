@@ -36,11 +36,8 @@ const accounting = {
   },
   generate_html_input(input) {
     let list_node = document.createElement("li");
-    if (input.get("type") === "einnahme") {
-      list_node.setAttribute("class", "einnahme");
-    } else if (input.get("type") === "ausgabe") {
-      list_node.setAttribute("class", "ausgabe");
-    }
+    input.get("type") === "einnahme" ? list_node.setAttribute("class", "einnahme") : list_node.setAttribute("class", "ausgabe");
+
     list_node.setAttribute("data-timestamp", input.get("timestamp"));
 
     let date = document.createElement("span");
@@ -143,11 +140,7 @@ const accounting = {
     sum_title.textContent = "Bilanz:";
     sum_row.insertAdjacentElement("afterbegin", sum_title);
     let sum_amount = document.createElement("span");
-    if (this.balance.get("sum") >= 0) {
-      sum_amount.setAttribute("class", "positiv");
-    } else if (this.balance.get("sum") < 0) {
-      sum_amount.setAttribute("class", "negativ");
-    }
+    this.balance.get("sum") >= 0 ? sum_amount.setAttribute("class", "positiv") : sum_amount.setAttribute("class", "negativ");
     sum_amount.textContent = `${(this.balance.get("sum") / 100).toFixed(2).replace(/\./, ",")} €`;
     sum_row.insertAdjacentElement("beforeend", sum_amount);
     sum.insertAdjacentElement("beforeend", sum_row);

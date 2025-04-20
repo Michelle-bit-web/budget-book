@@ -6,14 +6,13 @@ const formular = {
       title: e.target.elements.titel.value,
       amount: e.target.elements.betrag.value,
       income: e.target.elements.einnahme.checked,
-      costs: e.target.elements.ausgabe.checked,
       date: e.target.elements.datum.valueAsDate,
     };
   },
   processing_data(formular_data) {
     return {
       title: formular_data.title.trim(),
-      type: formular_data.costs === true ? "ausgabe" : formular_data.income === true ? "einnahme" : null,
+      type: formular_data.costs === false ? "ausgabe" : "einnahme",
       amount: parseFloat(formular_data.amount) * 100,
       date: formular_data.date,
     };
@@ -22,8 +21,6 @@ const formular = {
     let error = [];
     if (formular_data.title === "") {
       error.push("title");
-    } else if (formular_data.type === undefined || formular_data.type.match(/^(?:einnahme|ausgabe)$/) === null) {
-      error.push("type");
     } else if (formular_data.date === null) {
       error.push("date");
     } else if (isNaN(formular_data.amount)) {
