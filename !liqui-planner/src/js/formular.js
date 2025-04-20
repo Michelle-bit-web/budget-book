@@ -11,15 +11,9 @@ const formular = {
     };
   },
   processing_data(formular_data) {
-    let type;
-    if (formular_data.costs === true) {
-      type = "ausgabe";
-    } else if (formular_data.income === true) {
-      type = "einnahme";
-    }
     return {
       title: formular_data.title.trim(),
-      type: type,
+      type: formular_data.costs === true ? "ausgabe" : formular_data.income === true ? "einnahme" : null,
       amount: parseFloat(formular_data.amount) * 100,
       date: formular_data.date,
     };
@@ -164,7 +158,10 @@ const formular = {
     return input_formular;
   },
   show() {
-    document.querySelector("#navigationsleiste").insertAdjacentElement("afterend", this.generate_html());
-    this.refresh_date();
+    let navigation_list = document.querySelector("#navigationsleiste");
+    if(navigation_list !== null){
+      navigation_list.insertAdjacentElement("afterend", this.generate_html());
+      this.refresh_date();
+    }
   },
 };

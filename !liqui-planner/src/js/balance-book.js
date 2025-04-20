@@ -31,13 +31,7 @@ const accounting = {
   },
   sort_inputs() {
     this.inputs.sort((input_a, input_b) => {
-      if (input_a.get("date") > input_b.get("date")) {
-        return -1;
-      } else if (input_a.get("date") < input_b.get("date")) {
-        return 1;
-      } else {
-        return 0;
-      }
+      return input_a.get("date") > input_b.get("date") ? -1 : input_a.get("date") < input_b.get("date") ? 1 : 0;
     });
   },
   generate_html_input(input) {
