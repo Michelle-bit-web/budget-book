@@ -23,11 +23,11 @@ class Formular {
   _validate_data(formular_data) {
     let error = [];
     if (formular_data.title === "") {
-      error.push("title");
+      error.push("Titel");
     } else if (formular_data.date === null) {
-      error.push("date");
+      error.push("Datum");
     } else if (isNaN(formular_data.amount)) {
-      error.push("amount");
+      error.push("Betrag");
     }
     return error;
   }
@@ -44,11 +44,7 @@ class Formular {
       let formular_error = this._validate_data(formular_data);
 
       if (formular_error.length === 0) {
-        Balance_book.add_input(formular_data);
-        let input_formular_container = document.querySelector("#eingabeformular-container");
-        if (input_formular_container !== null) {
-          document.querySelector("#eingabeformular-container").insertAdjacentElement("afterbegin", this._html);
-        }
+        balance_book.add_input(formular_data);
         e.target.reset();
         this._refresh_date();
       } else {
@@ -137,7 +133,7 @@ class Formular {
   show() {
     let navigation_list = document.querySelector("body");
     if (navigation_list !== null) {
-      navigation_list.insertAdjacentElement("afterbegin", this._generate_html());
+      navigation_list.insertAdjacentElement("afterbegin", this._html);
       this._refresh_date();
     }
   }
