@@ -12,7 +12,7 @@ const formular = {
   processing_data(formular_data) {
     return {
       title: formular_data.title.trim(),
-      type: formular_data.costs === false ? "ausgabe" : "einnahme",
+      type: formular_data.income === false ? "ausgabe" : "einnahme",
       amount: parseFloat(formular_data.amount) * 100,
       date: formular_data.date,
     };
