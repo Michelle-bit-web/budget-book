@@ -1,9 +1,9 @@
-"use strict"
+"use strict";
 
-class Formular{
-    constructor(){
-        this._html = this._generate_html();
-    }
+class Formular {
+  constructor() {
+    this._html = this._generate_html();
+  }
   _get_formular_data(e) {
     return {
       title: e.target.elements.titel.value,
@@ -42,43 +42,20 @@ class Formular{
       e.preventDefault();
       let formular_data = this._processing_data(this._get_formular_data(e));
       let formular_error = this._validate_data(formular_data);
+
       if (formular_error.length === 0) {
         Balance_book.add_input(formular_data);
-        this._remove_error_box();
+        let input_formular_container = document.querySelector("#eingabeformular-container");
+        if (input_formular_container !== null) {
+          document.querySelector("#eingabeformular-container").insertAdjacentElement("afterbegin", this._html);
+        }
         e.target.reset();
         this._refresh_date();
       } else {
-        this._remove_error_box();
-        this._show_error_box(formular_error);
+        let error = new Error("Folgende Felder wurden nicht korrekt ausgeführt", formular_error);
+        error.show();
       }
     });
-  }
-  _generate_error_html(formular_error){
-    let error_box = document.createElement("div");
-    error_box.setAttribute("class", "fehlerbox");
-    let error_text = document.createElement("span");
-    error_text.textContent ="Folgende Felder wurden nicht korrekt ausgefüllt:";
-    error_box.insertAdjacentElement("afterbegin", error_text);
-    let error_list = document.createElement("ul");
-    formular_error.forEach(error => {
-      let error_list_point = document.createElement("li");
-      error_list_point.textContent = error;
-      error_list.insertAdjacentElement("beforeend", error_list_point);
-    });
-    error_text.insertAdjacentElement("afterend", error_list);
-    return error_box;
-  }
-  _show_error_box(formular_error){
-    let input_formular_container = document.querySelector("#eingabeformular-container");
-    if(input_formular_container !== null){
-      document.querySelector("#eingabeformular-container").insertAdjacentElement("afterbegin", this._generate_error_html(formular_error));
-    };
-  }
-  _remove_error_box(){
-    let current_error_box = document.querySelector(".fehlerbox");
-    if(current_error_box !== null){
-      current_error_box.remove();
-    }
   }
   _generate_html() {
     let input_formular = document.createElement("section");
@@ -159,9 +136,9 @@ class Formular{
   }
   show() {
     let navigation_list = document.querySelector("body");
-    if(navigation_list !== null){
+    if (navigation_list !== null) {
       navigation_list.insertAdjacentElement("afterbegin", this._generate_html());
       this._refresh_date();
     }
   }
-};
+}
