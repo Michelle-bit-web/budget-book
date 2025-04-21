@@ -43,7 +43,7 @@ class Formular{
       let formular_data = this._processing_data(this._get_formular_data(e));
       let formular_error = this._validate_data(formular_data);
       if (formular_error.length === 0) {
-        accounting.add_input(formular_data);
+        Balance_book.add_input(formular_data);
         this._remove_error_box();
         e.target.reset();
         this._refresh_date();

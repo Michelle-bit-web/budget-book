@@ -1,5 +1,5 @@
 "use strict"
 
-class Balance_sum{
+class Balance{
     
 }
