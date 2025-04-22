@@ -12,7 +12,7 @@ class Balancebook{
   add_input(formular_data) {
     let new_input = new Inputs(formular_data.title, formular_data.amount, formular_data.type, formular_data.date);
     this._inputs.push(new_input);
-    this._all_month_list.add_input(input);
+    this._all_month_list.add_input(new_input);
     this._balance._calculate_sum(this._inputs);
   }
   remove_input(timestamp){

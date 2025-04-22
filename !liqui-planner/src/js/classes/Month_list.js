@@ -31,6 +31,7 @@ class Month_list{
     }
     add_input(input){
       this._inputs.push(input);
+      this._refresh();
     }
     _generate_html(){
       let art = document.createElement("article");
@@ -53,7 +54,7 @@ class Month_list{
       }
       h2.insertAdjacentElement("beforeend", second_span);
       art.insertAdjacentElement("afterbegin", h2);
-      // second_span.textContent = ``;
+      second_span.textContent = `${this._sum} €`;
 
       let input_list = document.createElement("ul");
       this._inputs.forEach((input) => input_list.insertAdjacentElement("beforeend", input.html()));
@@ -61,4 +62,8 @@ class Month_list{
 
       return art;
     }
+    _refresh(){
+      this._html = this._generate_html();
+    }
+
 }

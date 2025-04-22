@@ -12,8 +12,8 @@ class ListAllMonth{
     }
 
     add_input(input){
-        let input_month = input.date().toLocaldeString("de-DE", {month: "numeric"});
-        let input_year = input.date().toLocaldeString("de-DE", {year: "numeric"});
+        let input_month = input.date().toLocaleString("de-DE", {month: "numeric"});
+        let input_year = input.date().toLocaleString("de-DE", {year: "numeric"});
         let monthlist_exists = false;
         this.month_list.forEach(monthlist => {
             if(input_month === monthlist.month() && input_year === monthlist.year()){
@@ -25,6 +25,7 @@ class ListAllMonth{
         if (!monthlist_exists){
             this._add_montlist(input_year, input_month, input);
         }
+        this._refresh();
     }
 
     _add_montlist(year, month, input){
@@ -39,7 +40,12 @@ class ListAllMonth{
         this.month_list.forEach(single_list => {
             lists.insertAdjacentElement("afterbegin", single_list.html());
         });
-        return this.month_list;
+        return lists;
+    }
+
+    _refresh(){
+        this._html = this._genreate_html();
+        this.show();
     }
 
     show(){
@@ -49,7 +55,7 @@ class ListAllMonth{
         if(month_list !== null){
             month_list.remove();
         }
-        input_formular_contaier.insertAdjacentElement("afterbegin", this._html);
+        input_formular_contaier.insertAdjacentElement("beforeend", this._html);
        }
     }
 }
