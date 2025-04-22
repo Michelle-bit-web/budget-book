@@ -12,7 +12,8 @@ class Balancebook{
   add_input(formular_data) {
     let new_input = new Inputs(formular_data.title, formular_data.amount, formular_data.type, formular_data.date);
     this._inputs.push(new_input);
-    this._all_month_list.add_input(new_input);
+    // this._all_month_list.add_input(new_input);
+    this._all_month_list.refresh(this._inputs);
     this._balance._calculate_sum(this._inputs);
   }
   remove_input(timestamp){
@@ -24,6 +25,7 @@ class Balancebook{
       };
     }
     this._inputs.splice(start_index, 1);
+    this._all_month_list.refresh(this._inputs);
     this._balance._calculate_sum(this._inputs);
    
   }
@@ -31,7 +33,4 @@ class Balancebook{
     this._all_month_list.show();
     this._balance.show();
   }
-  
-
- 
 };

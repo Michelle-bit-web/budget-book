@@ -11,7 +11,7 @@ class ListAllMonth{
         this._html = this._genreate_html();
     }
 
-    add_input(input){
+    _add_input(input){
         let input_month = input.date().toLocaleString("de-DE", {month: "numeric"});
         let input_year = input.date().toLocaleString("de-DE", {year: "numeric"});
         let monthlist_exists = false;
@@ -25,7 +25,6 @@ class ListAllMonth{
         if (!monthlist_exists){
             this._add_monthlist(input_year, input_month, input);
         }
-        this._refresh();
     }
 
     _add_monthlist(year, month, input){
@@ -59,7 +58,9 @@ class ListAllMonth{
         return lists;
     }
 
-    _refresh(){
+    refresh(inputs){
+        this.month_list = [];
+        inputs.forEach(input => this._add_input(input)) 
         this._sort_month();
         this._html = this._genreate_html();
         this.show();
