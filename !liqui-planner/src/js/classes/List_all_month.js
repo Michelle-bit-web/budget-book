@@ -23,27 +23,44 @@ class ListAllMonth{
         });
         //Abfrage bedeutet: if true
         if (!monthlist_exists){
-            this._add_montlist(input_year, input_month, input);
+            this._add_monthlist(input_year, input_month, input);
         }
         this._refresh();
     }
 
-    _add_montlist(year, month, input){
+    _add_monthlist(year, month, input){
        let new_month_list = new Month_list(year, month);
        new_month_list.add_input(input);
        this.month_list.push(new_month_list);
     }
     
+    _sort_month(){
+        this.month_list.sort((list_a, list_b) => {
+            if(list_a.year() < list_b.year()){
+                return 1;
+            } else if(list_a.year() > list_b.year()){
+                return -1;
+            } else {
+                if(list_a.month() < list_b.month()){
+                    return 1;
+                } else {
+                    return -1;
+                } 
+            }
+        });
+    }
+
     _genreate_html(){
         let lists = document.createElement("section");
         lists.setAttribute("id", "monatslisten");
         this.month_list.forEach(single_list => {
-            lists.insertAdjacentElement("afterbegin", single_list.html());
+            lists.insertAdjacentElement("beforeend", single_list.html());
         });
         return lists;
     }
 
     _refresh(){
+        this._sort_month();
         this._html = this._genreate_html();
         this.show();
     }

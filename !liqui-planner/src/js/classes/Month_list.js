@@ -18,11 +18,6 @@ class Month_list{
     html(){
       return this._html;
     }
-    // _sort_inputs() {
-    //   this._inputs.sort((input_a, input_b) => {
-    //     return input_a.date() > input_b.date() ? -1 : input_a.date() < input_b.date() ? 1 : 0;
-    //   });
-    // }
     _show_inputs() {
       document.querySelectorAll(".monatsliste ul").forEach((list) => list.remove());
       let input_list = document.createElement("ul");
@@ -32,6 +27,21 @@ class Month_list{
     add_input(input){
       this._inputs.push(input);
       this._refresh();
+    }
+     _sort_inputs() {
+      this._inputs.sort((input_a, input_b) => {
+        if(input_a.date() > input_b.date()){
+          return -1;
+        }else if(input_a.date() < input_b.date()){
+          return 1
+        } else{
+          if(input_a.timestamp() > input_b.timestamp()){
+            return -1;
+          } else {
+            return 1;
+          }
+        }
+      });
     }
     _generate_html(){
       let art = document.createElement("article");
@@ -63,6 +73,7 @@ class Month_list{
       return art;
     }
     _refresh(){
+      this._sort_inputs();
       this._html = this._generate_html();
     }
 
