@@ -43,6 +43,18 @@ class Month_list{
         }
       });
     }
+    _do_balance(){
+      let month_balance = 0;
+      this._inputs.forEach(input => {
+        if(input.type() === "einnahme"){
+          month_balance += input.amount();
+        } else{
+          month_balance -= input.amount();
+        }
+      });
+      this._sum = month_balance;
+    }
+
     _generate_html(){
       let art = document.createElement("article");
       art.setAttribute("class", "monatsliste");
@@ -64,7 +76,7 @@ class Month_list{
       }
       h2.insertAdjacentElement("beforeend", second_span);
       art.insertAdjacentElement("afterbegin", h2);
-      second_span.textContent = `${this._sum} €`;
+      second_span.textContent = `${((this._sum) / 100).toFixed(2).replace(/\./,",")} €`;
 
       let input_list = document.createElement("ul");
       this._inputs.forEach((input) => input_list.insertAdjacentElement("beforeend", input.html()));
@@ -74,6 +86,7 @@ class Month_list{
     }
     _refresh(){
       this._sort_inputs();
+      this._do_balance();
       this._html = this._generate_html();
     }
 
