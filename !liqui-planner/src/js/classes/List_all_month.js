@@ -1,6 +1,6 @@
-"use strict"
+import Month_list from "./Month_list.js";
 
-class ListAllMonth{
+export default class ListAllMonth{
     constructor(){
         this.month_list = [];
         this._html = this._genreate_html();

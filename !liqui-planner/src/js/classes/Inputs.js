@@ -1,6 +1,6 @@
-"use strict"
+import balance_book from "./../main.js"
 
-class Inputs{
+export default class Inputs{
     constructor(title, amount, type, date){
         this._title = title;
         this._amount = amount;

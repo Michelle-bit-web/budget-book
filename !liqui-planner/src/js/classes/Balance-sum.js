@@ -1,6 +1,4 @@
-"use strict"
-
-class Balance{
+export default class Balance{
     constructor(){
         this._totalIncome = 0;
         this._totalCosts = 0;

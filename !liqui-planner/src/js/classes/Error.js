@@ -1,6 +1,4 @@
-"use strict";
-
-class Error {
+export default class Error {
   constructor(error_text, formular_error) {
     this._error_text = error_text;
     this._formular_error = formular_error;

@@ -1,10 +1,4 @@
-"use strict"
-
-/* <nav id="navigationsleiste">
-<a href="index.html"><span id="markenname">Liqui-Planner</span></a>
-</nav> */
-
-class Navigationlist{
+export default class Navigationlist{
     constructor(){
         this._html = this._generate_html();
     }

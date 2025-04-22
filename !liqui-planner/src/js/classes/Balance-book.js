@@ -1,6 +1,10 @@
-"use strict"
+import Navigationlist from "./Navigationlist.js";
+import Formular from "./Formular.js";
+import ListAllMonth from "./List_all_month.js";
+import Balance from "./Balance-sum.js";
+import Inputs from "./Inputs.js";
 
-class Balancebook{
+export default class Balancebook{
     constructor(){
         this._inputs = [];
         this._navigation = new Navigationlist();

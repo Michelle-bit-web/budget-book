@@ -1,6 +1,7 @@
-"use strict";
+import Error from "./Error.js";
+import balance_book from "./../main.js";
 
-class Formular{
+export default class Formular{
   constructor() {
     this._html = this._generate_html();
   }
