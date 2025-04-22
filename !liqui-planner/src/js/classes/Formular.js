@@ -1,16 +1,39 @@
+/**
+ * Das Modul "Eingabeformular" ist für das Eingabeformular der Anwendung zuständig.
+ * @module classes/Eingabeformular
+ * 
+ */
+
 import Error from "./Error.js";
 import balance_book from "./../main.js";
 
+/**
+ * Die Klasse "Eingabeformular" stelle alle Eigenschaften und Methoden
+ * des Eingabeformulars (inkl. HTML und Events) zur Verfügung.
+ */
 export default class Formular{
+
+  /**
+   * Der constructor generiert bei Instanziierung der Klasse "Eingabeformular" das
+   * HTML des Eingabeformulars.
+   * @prop {Element} _html - das HTML des Eingabeformulars
+   */
   constructor() {
     this._html = this._generate_html();
   }
-  _get_formular_data(e) {
+
+  /**
+   * Diese private Methode extrahiert die im Eingabeformular
+   * eingegebeben Daten aus dem Submit-Event des Eingabeformulars.
+   * @param {Event} sumbit_event - das Submit-Event des Eingabeformulars
+   * @returns {Object} - einfaches Objekt mit den Rohdaten des Eingabeformulars
+   */
+  _get_formular_data(sumbit_event) {
     return {
-      title: e.target.elements.titel.value,
-      amount: e.target.elements.betrag.value,
-      income: e.target.elements.einnahme.checked,
-      date: e.target.elements.datum.valueAsDate,
+      title: sumbit_event.target.elements.titel.value,
+      amount: sumbit_event.target.elements.betrag.value,
+      income: sumbit_event.target.elements.einnahme.checked,
+      date: sumbit_event.target.elements.datum.valueAsDate,
     };
   }
   _processing_data(formular_data) {
