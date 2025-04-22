@@ -1,6 +1,6 @@
 "use strict";
 
-class Formular {
+class Formular{
   constructor() {
     this._html = this._generate_html();
   }

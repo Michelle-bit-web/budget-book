@@ -1,18 +1,16 @@
 "use strict"
 
 class Balancebook{
-
     constructor(){
         this._inputs = [];
+        this._navigation = new Navigationlist();
+        this.formular = new Formular();
         this._all_month_list = new ListAllMonth();
         this._balance = new Balance(); 
-        
     }
-  
   add_input(formular_data) {
     let new_input = new Inputs(formular_data.title, formular_data.amount, formular_data.type, formular_data.date);
     this._inputs.push(new_input);
-    // this._all_month_list.add_input(new_input);
     this._all_month_list.refresh(this._inputs);
     this._balance._calculate_sum(this._inputs);
   }
@@ -27,9 +25,10 @@ class Balancebook{
     this._inputs.splice(start_index, 1);
     this._all_month_list.refresh(this._inputs);
     this._balance._calculate_sum(this._inputs);
-   
   }
-  show(){
+  start(){
+    this._navigation.show();
+    this._formular.show();
     this._all_month_list.show();
     this._balance.show();
   }

@@ -21,7 +21,6 @@ class Navigationlist{
 
         return nav;
     }
-
     show(){
        let body = document.querySelector("body");
        if(body !== null){

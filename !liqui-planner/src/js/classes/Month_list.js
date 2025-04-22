@@ -8,7 +8,6 @@ class Month_list{
       this._sum = 0;
       this._html = this._generate_html();
     }
-
     month(){
       return this._month;
     }
@@ -54,7 +53,6 @@ class Month_list{
       });
       this._sum = month_balance;
     }
-
     _generate_html(){
       let art = document.createElement("article");
       art.setAttribute("class", "monatsliste");
@@ -89,5 +87,4 @@ class Month_list{
       this._do_balance();
       this._html = this._generate_html();
     }
-
 }

@@ -1,16 +1,10 @@
 "use strict"
 
-
-    // <section id="monatslisten">
-      
-    // </section>
-
 class ListAllMonth{
     constructor(){
         this.month_list = [];
         this._html = this._genreate_html();
     }
-
     _add_input(input){
         let input_month = input.date().toLocaleString("de-DE", {month: "numeric"});
         let input_year = input.date().toLocaleString("de-DE", {year: "numeric"});
@@ -21,18 +15,15 @@ class ListAllMonth{
                 monthlist_exists = true;
             }
         });
-        //Abfrage bedeutet: if true
         if (!monthlist_exists){
             this._add_monthlist(input_year, input_month, input);
         }
     }
-
     _add_monthlist(year, month, input){
        let new_month_list = new Month_list(year, month);
        new_month_list.add_input(input);
        this.month_list.push(new_month_list);
     }
-    
     _sort_month(){
         this.month_list.sort((list_a, list_b) => {
             if(list_a.year() < list_b.year()){
@@ -48,7 +39,6 @@ class ListAllMonth{
             }
         });
     }
-
     _genreate_html(){
         let lists = document.createElement("section");
         lists.setAttribute("id", "monatslisten");
@@ -57,7 +47,6 @@ class ListAllMonth{
         });
         return lists;
     }
-
     refresh(inputs){
         this.month_list = [];
         inputs.forEach(input => this._add_input(input)) 
@@ -65,7 +54,6 @@ class ListAllMonth{
         this._html = this._genreate_html();
         this.show();
     }
-
     show(){
        let input_formular_contaier = document.querySelector("#eingabeformular-container");
        let month_list = document.querySelector("#monatslisten");
