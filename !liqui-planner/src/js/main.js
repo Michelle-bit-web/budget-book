@@ -7,3 +7,4 @@ let formular = new Formular();
 formular.show();
 
 let balance_book = new Balancebook();
+balance_book.show();

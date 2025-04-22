@@ -6,7 +6,6 @@ class Balance{
         this._totalCosts = 0;
         this._sum = 0;
         this._html = this._generate_html_sum();
-        this._show_sum();
     }
     _calculate_sum(inputs) {
         this._totalIncome = 0;
@@ -27,7 +26,7 @@ class Balance{
           }
         });
         this._html = this._generate_html_sum();
-        this._show_sum();
+        this.show();
       }
       _generate_html_sum() {
         let sum = document.createElement("aside");
@@ -70,7 +69,7 @@ class Balance{
     
         return sum;
       }
-      _show_sum() {
+      show() {
        let sum = document.querySelector("#gesamtbilanz");
        if(sum !== null){
         sum.remove();
