@@ -4,8 +4,8 @@
  * 
  */
 
-import Error from "./Error.js";
-import balance_book from "./../main.js";
+import Errorbox from "./Errorbox.js";
+import liqui_planner from "../liqui-planner.js";
 
 /**
  * Die Klasse "Eingabeformular" stelle alle Eigenschaften und Methoden
@@ -68,11 +68,11 @@ export default class Formular{
       let formular_error = this._validate_data(formular_data);
 
       if (formular_error.length === 0) {
-        balance_book.add_input(formular_data);
+        liqui_planner.add_input(formular_data);
         e.target.reset();
         this._refresh_date();
       } else {
-        let error = new Error("Folgende Felder wurden nicht korrekt ausgeführt", formular_error);
+        let error = new Errorbox("Folgende Felder wurden nicht korrekt ausgeführt", formular_error);
         error.show();
       }
     });
@@ -131,7 +131,7 @@ export default class Formular{
             size="10"
             step="0.01"
             title="Betrag des Eintrags (max. zwei Nachkommastellen, kein €-Zeichen)"
-            
+            min="0.01"
           />
           <label for="datum">Datum</label>
           <input
@@ -139,9 +139,8 @@ export default class Formular{
             id="datum"
             name="datum"
             form="eingabeformular"
-            placeholder="jjjj-mm-tt"
             size="10"
-            title="Datum des Eintrags (Format: jjjj-mm-tt)"
+            title="Datum des Eintrags"
             
           />
         </div>
@@ -155,9 +154,9 @@ export default class Formular{
     return input_formular;
   }
   show() {
-    let navigation_list = document.querySelector("body");
+    let navigation_list = document.querySelector("#navigationsleiste");
     if (navigation_list !== null) {
-      navigation_list.insertAdjacentElement("afterbegin", this._html);
+      navigation_list.insertAdjacentElement("afterend", this._html);
       this._refresh_date();
     }
   }

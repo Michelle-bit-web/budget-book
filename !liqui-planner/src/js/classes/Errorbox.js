@@ -1,4 +1,7 @@
-export default class Error {
+/**
+ * Das Modul "Errorbox" stellt
+ */
+export default class Errorbox {
   constructor(error_text, formular_error) {
     this._error_text = error_text;
     this._formular_error = formular_error;

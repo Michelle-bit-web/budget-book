@@ -1,4 +1,4 @@
-import balance_book from "./../main.js"
+import liqui_planner from "../liqui-planner.js"
 
 export default class Inputs{
     constructor(title, amount, type, date){
@@ -71,7 +71,7 @@ export default class Inputs{
       _add_event_recycle_input(list_node){
         list_node.querySelector(".entfernen-button").addEventListener("click", e => {
           let timestamp = e.target.parentElement.getAttribute("data-timestamp");
-          balance_book.remove_input(timestamp);
+          liqui_planner.remove_input(timestamp);
         });
       } 
 }

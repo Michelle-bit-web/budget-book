@@ -67,11 +67,20 @@ export default class Balance{
     
         return sum;
       }
-      show() {
+      /**
+       * Diese private Methode entfernt eine bereits bestehende Gesamtbilanz, wenn vorhanden.
+       */
+      _remove(){
        let sum = document.querySelector("#gesamtbilanz");
        if(sum !== null){
         sum.remove();
        }
+      }
+      /**
+       * Diese Methode zeigt die generierte Gesamtbilanz an der richtigen Stelle in der UI an.
+       */
+      show() {
+        this._remove();
         document.querySelector("body").insertAdjacentElement("beforeend", this._html);
       }
 }

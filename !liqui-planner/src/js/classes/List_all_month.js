@@ -54,13 +54,19 @@ export default class ListAllMonth{
         this._html = this._genreate_html();
         this.show();
     }
-    show(){
-       let input_formular_contaier = document.querySelector("#eingabeformular-container");
-       let month_list = document.querySelector("#monatslisten");
-       if(input_formular_contaier !== null){
+     /**
+       * Diese private Methode entfernt eine bereits bestehende Sammlung an Monatslisten, wenn vorhanden.
+       */
+    _remove(){
+        let month_list = document.querySelector("#monatslisten");
         if(month_list !== null){
             month_list.remove();
         }
+    }
+    show(){
+       let input_formular_contaier = document.querySelector("#eingabeformular-container");
+       if(input_formular_contaier !== null){
+        this._remove();
         input_formular_contaier.insertAdjacentElement("beforeend", this._html);
        }
     }
